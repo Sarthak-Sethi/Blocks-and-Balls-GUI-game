@@ -49,7 +49,20 @@ class BlockBreak extends JPanel implements KeyListener{
     }
     public void update(){
         repaint();
-      
+      for(Block ba : ball){
+        ba.x+=ba.xmove;
+        if(ba.x>(getWidth()-25) && ba.xmove>0 || ba.x < 0)
+                ba.xmove*=-1;
+        if(ba.y < 0 || ba.intersects(paddel))
+                ba.ymove*=-1;
+        ba.y+=ba.ymove;
+       for(Block b: blocks){
+           if(ba.intersects(b) && !b.destroyed){
+               b.destroyed= true;
+               ba.ymove*=-1;
+           }
+        } 
+      }
     }
 
     @Override
